@@ -174,11 +174,18 @@ class _CadastroState extends State<Cadastro> {
                         borderRadius: BorderRadius.circular(5),
                       )),
                   onPressed: () {
-                    Navigator.push(
+                    Firebase.initializeApp();
+                    var collection =
+                        FirebaseFirestore.instance.collection('cadastro');
+                    collection.doc().set({
+                      'nome': _nameTextController,
+                      'contato': _phoneTextController,
+                      'projeto': _projectTextController,
+                    }).then((value) => Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => ThanksPage(),
-                        ));
+                        )));
                   },
                   child: Text('Enviar', style: TextStyle(color: Colors.white)),
                 ),
